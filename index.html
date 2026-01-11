@@ -23,17 +23,44 @@
     text-align: center;
   }
 
-  #timer {
-    font-size: 48px;
-    margin: 20px 0;
-    font-variant-numeric: tabular-nums;
-    letter-spacing: 0.05em;
+<div id="timer">
+  <span id="hours">0000</span>
+  <span class="sep">:</span>
+  <span id="minutes">00</span>
+  <span class="sep">:</span>
+  <span id="seconds">00</span>
+</div>
+
   }
 
   img {
-    max-width: 800px;
+    max-width: 600px;
     margin-top: 20px;
   }
+
+  #timer {
+  font-family: 'Zen Dots', sans-serif;
+  font-size: 64px;
+}
+
+#timer span {
+  display: inline-block;
+  text-align: center;
+}
+
+#hours {
+  width: 4ch;
+}
+
+#minutes,
+#seconds {
+  width: 2ch;
+}
+
+.sep {
+  width: 1ch;
+}
+
 </style>
 </head>
 <body>
@@ -54,7 +81,9 @@ function updateTimer() {
   const diff = targetDate - now;
 
   if (diff <= 0) {
-    document.getElementById("timer").textContent = "0000:00:00";
+    document.getElementById("hours").textContent = "0000";
+    document.getElementById("minutes").textContent = "00";
+    document.getElementById("seconds").textContent = "00";
     return;
   }
 
@@ -64,10 +93,12 @@ function updateTimer() {
   const minutes = Math.floor((totalSeconds % 3600) / 60);
   const seconds = totalSeconds % 60;
 
-  document.getElementById("timer").textContent =
-    `${String(totalHours).padStart(4, '0')}:` +
-    `${String(minutes).padStart(2, '0')}:` +
-    `${String(seconds).padStart(2, '0')}`;
+  document.getElementById("hours").textContent =
+    String(totalHours).padStart(4, '0');
+  document.getElementById("minutes").textContent =
+    String(minutes).padStart(2, '0');
+  document.getElementById("seconds").textContent =
+    String(seconds).padStart(2, '0');
 }
 
 setInterval(updateTimer, 1000);
